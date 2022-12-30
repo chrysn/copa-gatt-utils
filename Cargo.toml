@@ -7,5 +7,5 @@ license = "BSD-3-Clause"
 
 [dependencies]
 coap-message = "0.2.3"
-coap-message-utils = "0.2.1"
+coap-message-utils = "0.2.2"
 heapless = "0.7.16"

@@ -9,6 +9,7 @@
 
 pub type ReadMessage<'a> = coap_message_utils::inmemory::Message<'a>;
 pub type WriteMessage<'a> = coap_message_utils::inmemory_write::Message<'a>;
+pub type ReadWriteMessage<'a> = coap_message_utils::inmemory_write::Message<'a>;
 
 /// Error type for trying to parse a zero-length message
 #[derive(Debug)]
@@ -24,6 +25,26 @@ pub struct MessageTooShort;
 // limiting on the long run
 pub fn parse(serialized: &[u8]) -> Result<ReadMessage<'_>, MessageTooShort> {
     Ok(coap_message_utils::inmemory::Message::new(*serialized.get(0).ok_or(MessageTooShort)?, &serialized[1..]))
+}
+
+/// Like parse, but take data from a mutable slice, and keep the message writable
+///
+/// While this is generally not useful (a parsed message has its paylod already set, and if there's
+/// no payload, there's no space to add options or any payload), it allows mutable access to the
+/// option bytes and the payload. This is primarily useful in situations when data is processed in
+/// place, eg. decrypted (in OSCORE), or CBOR is shifted around to get contiguous slices out of
+/// indefinite length strings.
+///
+/// Note that as this returns the WriteMessage, unlike in [write] where access happens through a
+/// closure, the final length of the buffer is inaccessible (but generally not needed -- after
+/// whoever uses this is done with the message, no illusions of any validity of the message in the
+/// buffer should be had any more).
+pub fn parse_mut(serialized: &mut [u8]) -> Result<ReadWriteMessage<'_>, MessageTooShort> {
+    if serialized.len() < 1 {
+        return Err(MessageTooShort);
+    }
+    let (mut code, mut tail) = serialized.split_at_mut(1);
+    Ok(coap_message_utils::inmemory_write::Message::new_from_existing(&mut code[0], tail))
 }
 
 /// Dress up a writable buffer of a constant size as a writable CoAP message
