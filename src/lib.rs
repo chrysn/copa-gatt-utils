@@ -25,7 +25,7 @@ pub struct MessageTooShort;
 // limiting on the long run
 pub fn parse(serialized: &[u8]) -> Result<ReadMessage<'_>, MessageTooShort> {
     Ok(coap_message_utils::inmemory::Message::new(
-        *serialized.get(0).ok_or(MessageTooShort)?,
+        *serialized.first().ok_or(MessageTooShort)?,
         &serialized[1..],
     ))
 }
@@ -43,10 +43,10 @@ pub fn parse(serialized: &[u8]) -> Result<ReadMessage<'_>, MessageTooShort> {
 /// whoever uses this is done with the message, no illusions of any validity of the message in the
 /// buffer should be had any more).
 pub fn parse_mut(serialized: &mut [u8]) -> Result<ReadWriteMessage<'_>, MessageTooShort> {
-    if serialized.len() < 1 {
+    if serialized.is_empty() {
         return Err(MessageTooShort);
     }
-    let (mut code, mut tail) = serialized.split_at_mut(1);
+    let (code, tail) = serialized.split_at_mut(1);
     Ok(coap_message_utils::inmemory_write::Message::new_from_existing(&mut code[0], tail))
 }
 
