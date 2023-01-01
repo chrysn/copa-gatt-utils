@@ -24,7 +24,10 @@ pub struct MessageTooShort;
 // FIXME returning the concrete type is convenient as it allows a few types to be known, but may be
 // limiting on the long run
 pub fn parse(serialized: &[u8]) -> Result<ReadMessage<'_>, MessageTooShort> {
-    Ok(coap_message_utils::inmemory::Message::new(*serialized.get(0).ok_or(MessageTooShort)?, &serialized[1..]))
+    Ok(coap_message_utils::inmemory::Message::new(
+        *serialized.get(0).ok_or(MessageTooShort)?,
+        &serialized[1..],
+    ))
 }
 
 /// Like parse, but take data from a mutable slice, and keep the message writable
