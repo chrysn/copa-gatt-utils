@@ -75,3 +75,41 @@ pub fn write<const N: usize>(closure: impl FnOnce(&mut WriteMessage<'_>)) -> hea
     buffer.truncate(len + 1);
     buffer
 }
+
+#[test]
+fn test_too_short() {
+    assert!(matches!(parse(&[]), Err(MessageTooShort)));
+}
+
+// test_short, test_payload and test_write together should suffice to cover this crate's
+// functionality. More extensive tests are done in coap-message-utils, which provides the backend
+// to it.
+
+#[test]
+fn test_short() {
+    use coap_message::ReadableMessage;
+
+    let msg = parse(&[0x45]).unwrap();
+    assert!(msg.code() == 0x45);
+    assert!(msg.payload() == b"");
+}
+
+#[test]
+fn test_payload() {
+    use coap_message::ReadableMessage;
+
+    let msg = parse(&[0x45, 0xff, 0x00]).unwrap();
+    assert!(msg.code() == 0x45);
+    assert!(msg.payload() == b"\0");
+}
+
+#[test]
+fn test_write() {
+    let serialized: heapless::Vec<_, 3> = write(|msg| {
+        use coap_message::MinimalWritableMessage;
+
+        msg.set_code(0x45);
+        msg.set_payload(&[0]);
+    });
+    assert!(&serialized == &[0x45, 0xff, 0x00]);
+}

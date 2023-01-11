@@ -1,0 +1,4 @@
+test:nightly:
+  image: docker.io/rust
+  script:
+  - cargo version && cargo test --all --all-features
