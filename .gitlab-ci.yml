@@ -2,3 +2,11 @@ test:nightly:
   image: docker.io/rust
   script:
   - cargo version && cargo test --all --all-features
+pages:
+  image: docker.io/rust
+  script:
+    - cargo doc --no-deps
+    - mv target/doc public/doc
+  artifacts:
+    paths:
+      - public
