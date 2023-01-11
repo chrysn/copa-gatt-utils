@@ -38,7 +38,7 @@ pub fn parse(serialized: &[u8]) -> Result<ReadMessage<'_>, MessageTooShort> {
 /// place, eg. decrypted (in OSCORE), or CBOR is shifted around to get contiguous slices out of
 /// indefinite length strings.
 ///
-/// Note that as this returns the WriteMessage, unlike in [write] where access happens through a
+/// Note that as this returns the WriteMessage, unlike in [write()] where access happens through a
 /// closure, the final length of the buffer is inaccessible (but generally not needed -- after
 /// whoever uses this is done with the message, no illusions of any validity of the message in the
 /// buffer should be had any more).
