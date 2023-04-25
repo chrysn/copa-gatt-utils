@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Copyright 2022 EDF (Électricité de France S.A.)
+// SPDX-License-Identifier: BSD-3-Clause
+// See README for all details on copyright, authorship and license.
 //! Implementation utilities for CoAP-over-GATT ([draft-amsuess-core-coap-over-gatt-02])
 //!
 //! Right now, this contains the message format parsing and serialization, largely fulled by

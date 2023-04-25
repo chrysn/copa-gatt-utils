@@ -1,3 +1,7 @@
+<!--
+SPDX-FileCopyrightText: Copyright 2022 EDF (Électricité de France S.A.)
+SPDX-License-Identifier: BSD-3-Clause
+-->
 # coap-gatt-utils
 
 Implementation utilities for CoAP-over-GATT ([draft-amsuess-core-coap-over-gatt-02])
@@ -8,4 +12,12 @@ CoAP option-extension-data-ff-payload scheme.
 
 [draft-amsuess-core-coap-over-gatt-02]: https://datatracker.ietf.org/doc/id/draft-amsuess-core-coap-over-gatt-02.html
 
-License: BSD-3-Clause
+License
+-------
+
+This project and all files contained in it is published under the
+BSD-3-Clause license as defined in [`LICENSES/BSD-3-Clause.txt`](LICENSES/BSD-3-Clause.txt).
+
+Copyright: 2022 EDF (Électricité de France S.A.)
+
+Author: Christian Amsüss
