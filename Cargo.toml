@@ -6,8 +6,11 @@
 name = "coap-gatt-utils"
 version = "0.1.0"
 edition = "2021"
-authors = [ "EDF, developed in collaboration with Christian Amsüss" ]
+authors = [ "Christian Amsüss" ]
 license = "BSD-3-Clause"
+
+repository = "https://gitlab.com/oscore/coap-gatt-utils"
+docs = "https://docs.rs/crate/coap-gatt-utils/latest"
 
 [dependencies]
 coap-message = "0.2.3"
