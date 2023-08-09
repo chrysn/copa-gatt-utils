@@ -9,6 +9,8 @@ edition = "2021"
 authors = [ "Christian Amsüss" ]
 license = "BSD-3-Clause"
 
+description = "Implementation utilities for CoAP-over-GATT (draft-amsuess-core-coap-over-gatt-02)"
+
 repository = "https://gitlab.com/oscore/coap-gatt-utils"
 docs = "https://docs.rs/crate/coap-gatt-utils/latest"
 

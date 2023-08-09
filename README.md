@@ -5,6 +5,7 @@ SPDX-License-Identifier: BSD-3-Clause
 # coap-gatt-utils
 
 Implementation utilities for CoAP-over-GATT ([draft-amsuess-core-coap-over-gatt-02])
+<!-- When updating this line, don't forget to update the description in Cargo.toml -->
 
 Right now, this contains the message format parsing and serialization, largely fulled by
 [coap_message_utils], given that most of the message format is just a rehash of the universal
